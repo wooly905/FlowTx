@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Wooly905.FlowTx.Abstraction.Tx;
 
-public interface IDbExecutionWithTransaction
+public interface IFlowTxTransactionalContext
 {
-    Task ExecuteStoredProcedureAsync(string storedProcedureName, IReadOnlyList<IDbDataParameter> parameters);
+    Task ExecuteStoredProcedureAsync(string storedProcedureName, IEnumerable<IDbDataParameter> parameters);
 
     Task ExecuteCommandTextAsync(string commandText);
 }

@@ -1,9 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>11.0</LangVersion>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyTitle>FlowTx</AssemblyTitle>
+        <Company>Wooly905</Company>
+        <Version>0.1</Version>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Wooly905.FlowTx.Abstraction\Wooly905.FlowTx.Abstraction.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 
 namespace Wooly905.FlowTx.Abstraction.Tx;
 
-public interface IDbTransactionExecution
+public interface IFlowTxProvider
 {
     void CommitTransaction();
 
-    Task ExecuteStoreProcedureAsync(string storedProcedureName, IEnumerable<IDbDataParameter> parameters);
+    void Dispose();
+
+    Task ExecuteStoredProcedureAsync(string storedProcedureName, IEnumerable<IDbDataParameter> parameters);
 
     Task ExecuteCommandTextAsync(string commandText);
 

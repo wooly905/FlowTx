@@ -6,4 +6,10 @@
         <LangVersion>11.0</LangVersion>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <AssemblyTitle>FlowTx</AssemblyTitle>
+        <Company>Wooly905</Company>
+        <Version>0.1</Version>
+    </PropertyGroup>
+
 </Project>

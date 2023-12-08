@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Wooly905.FlowTx.Abstraction;
 
-public interface IDbReader
+public interface IFlowTxDbReader
 {
     int ColumnCount { get; }
 
@@ -15,7 +15,7 @@ public interface IDbReader
 
     bool TryGetBoolValue(string columnName, int rowIndex, out bool? value);
 
-    bool TryGetDataRowsValue(out IReadOnlyList<IReadOnlyDictionary<string, object>> value);
+    bool TryGetDataRowsValue(out IEnumerable<IReadOnlyDictionary<string, object>> value);
 
     bool TryGetDateTimeValue(int columnIndex, int rowIndex, out DateTime? value);
 

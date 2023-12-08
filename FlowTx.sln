@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wooly905.FlowTx.Abstraction", "src\Wooly905.FlowTx.Abstraction\Wooly905.FlowTx.Abstraction.csproj", "{9B5865CB-2023-4BAF-9030-16A6C5337324}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wooly905.FlowTx.Impl", "src\Wooly905.FlowTx.Impl\Wooly905.FlowTx.Impl.csproj", "{DAEACB58-597B-4F3C-8191-E98D90D14B9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wooly905.FlowTx.Impl", "src\Wooly905.FlowTx.Impl\Wooly905.FlowTx.Impl.csproj", "{DAEACB58-597B-4F3C-8191-E98D90D14B9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowTxTests", "tests\FlowTxTests\FlowTxTests.csproj", "{F1BF095E-8542-419B-A21E-4F6A0BCDED61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DAEACB58-597B-4F3C-8191-E98D90D14B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAEACB58-597B-4F3C-8191-E98D90D14B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAEACB58-597B-4F3C-8191-E98D90D14B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1BF095E-8542-419B-A21E-4F6A0BCDED61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BF095E-8542-419B-A21E-4F6A0BCDED61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BF095E-8542-419B-A21E-4F6A0BCDED61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BF095E-8542-419B-A21E-4F6A0BCDED61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
