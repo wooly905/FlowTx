@@ -4,7 +4,7 @@ using Wooly905.FlowTx.Impl;
 
 namespace FlowTxTests.ManualTests;
 
-public class StoredProcedureGetSingleRecordTest
+public class StoredProcedureGetRecordTest
 {
     [Fact]
     public async Task StoredProcedure_GetSingleRecord_WithParameter_Test()
@@ -44,6 +44,8 @@ public class StoredProcedureGetSingleRecordTest
         Assert.Equal("Janet", employee.FirstName);
     }
 
+    // stored procedure get single record with parameter with converter
+
     [Fact]
     public async Task StoredProcedure_GetSingleRecord_WithoutParameter_Test()
     {
@@ -76,6 +78,8 @@ public class StoredProcedureGetSingleRecordTest
         Assert.Equal(1, employee.EmployeeID);
         Assert.Equal("Nancy", employee.FirstName);
     }
+
+    // stored procedure get single record without parameter with converter
 
     [Fact]
     public async Task StoredProcedure_GetMultiRecords_WithParameter_Test()
@@ -141,6 +145,8 @@ public class StoredProcedureGetSingleRecordTest
         Assert.Empty(employees2);
     }
 
+    // stored procedure get multi records with parameter with converter
+
     [Fact]
     public async Task StoredProcedure_GetMultiRecords_WithoutParameter_Test()
     {
@@ -173,4 +179,6 @@ public class StoredProcedureGetSingleRecordTest
         Assert.Equal("VINET", orders.First().CustomerID);
         Assert.Equal(5, orders.First().EmployeeID);
     }
+
+    // stored procedure get multi records without parameter with converter
 }

@@ -4,12 +4,19 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>11.0</LangVersion>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <PropertyGroup>
         <AssemblyTitle>FlowTx</AssemblyTitle>
         <Company>Wooly905</Company>
-        <Version>0.1</Version>
+        <Version>0.0.1</Version>
+        <Authors>Wooly905</Authors>
+        <Product>FlowTx Abstraction</Product>
+        <ProductName>FlowTx Abstraction</ProductName>
+        <Description>A simple data access library based on Microsoft.Data.SqlClient</Description>
+        <PackageId>Wooly905.FlowTx.Abstraction</PackageId>
+        <PackageTags>Data access library;Microsoft SQL Server;Transaction</PackageTags>
     </PropertyGroup>
 
 </Project>
