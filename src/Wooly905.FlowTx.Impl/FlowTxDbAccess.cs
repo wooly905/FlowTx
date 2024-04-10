@@ -8,15 +8,8 @@ using Wooly905.FlowTx.Abstraction;
 
 namespace Wooly905.FlowTx.Impl;
 
-public class FlowTxDbAccess : IFlowTxDbAccess
+public class FlowTxDbAccess(string connectionString) : IFlowTxDbAccess
 {
-    private readonly string _connectionString;
-
-    public FlowTxDbAccess(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
-
     public async Task<int> ExecuteNonQueryAsync(string storedProcedureName, int? commandTimeout = null)
     {
         return await ExecuteNonQueryInternalAsync(storedProcedureName, null, commandTimeout).ConfigureAwait(false);
@@ -29,7 +22,7 @@ public class FlowTxDbAccess : IFlowTxDbAccess
 
     private async Task<int> ExecuteNonQueryInternalAsync(string storedProcedureName, IEnumerable<IDbDataParameter>? parameters, int? commandTimeout = null)
     {
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
         using SqlCommand command = parameters == null
                                    ? CreateSqlCommand(connection, storedProcedureName, CommandType.StoredProcedure, commandTimeout)
@@ -73,9 +66,20 @@ public class FlowTxDbAccess : IFlowTxDbAccess
 
     public async Task<int> ExecuteNonQueryByCmdTextAsync(string commandText, int? commandTimeout = null)
     {
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
         using SqlCommand command = CreateSqlCommand(connection, commandText, CommandType.Text, commandTimeout);
+
+        return await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+    }
+
+    public async Task<int> ExecuteNonQueryByCmdTextAsync(string commandText,
+                                                         IEnumerable<IDbDataParameter> parameters,
+                                                         int? commandTimeout = null)
+    {
+        using SqlConnection connection = new(connectionString);
+        await connection.OpenAsync().ConfigureAwait(false);
+        using SqlCommand command = CreateSqlCommand(connection, commandText, CommandType.Text, parameters, commandTimeout);
 
         return await command.ExecuteNonQueryAsync().ConfigureAwait(false);
     }
@@ -97,7 +101,7 @@ public class FlowTxDbAccess : IFlowTxDbAccess
                                                           IEnumerable<IDbDataParameter>? parameters,
                                                           int? commandTimeout = null)
     {
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
         using SqlCommand command = parameters == null
                                    ? CreateSqlCommand(connection, storedProcedureName, CommandType.StoredProcedure, commandTimeout)
@@ -108,7 +112,7 @@ public class FlowTxDbAccess : IFlowTxDbAccess
 
     public async Task<object> ExecuteScalarByCmdTextAsync(string commandText, int? commandTimeout = null)
     {
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
         using SqlCommand command = CreateSqlCommand(connection,
                                                     commandText,
@@ -141,7 +145,7 @@ public class FlowTxDbAccess : IFlowTxDbAccess
                                                                    IEnumerable<IDbDataParameter> parameters,
                                                                    int? commandTimeout = null)
     {
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
         using SqlCommand command = parameters == null
                                    ? CreateSqlCommand(connection, commandText, commandType, commandTimeout)
@@ -286,7 +290,7 @@ public class FlowTxDbAccess : IFlowTxDbAccess
             throw new ArgumentException("Mapping cannot be null or empty");
         }
 
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
 
         using SqlCommand command = parameters == null
@@ -390,7 +394,7 @@ public class FlowTxDbAccess : IFlowTxDbAccess
 
         List<T> models = new();
 
-        using SqlConnection connection = new(_connectionString);
+        using SqlConnection connection = new(connectionString);
         await connection.OpenAsync().ConfigureAwait(false);
 
         using SqlCommand command = parameters == null
@@ -433,6 +437,33 @@ public class FlowTxDbAccess : IFlowTxDbAccess
         return await GetRecordsInternalAsync<T>(commandText,
                                                 CommandType.Text,
                                                 null,
+                                                mappings,
+                                                converters,
+                                                commandTimeout).ConfigureAwait(false);
+    }
+
+    public async Task<IEnumerable<T>> GetRecordsByCmdTextAsync<T>(string commandText,
+                                                                  IEnumerable<IDbDataParameter> parameters,
+                                                                  IEnumerable<(string ModelPropertyPath, string ColumnName, Type ModelPropertyType)> mappings,
+                                                                  int? commandTimeout = null) where T : class
+    {
+        return await GetRecordsInternalAsync<T>(commandText,
+                                                CommandType.Text,
+                                                parameters,
+                                                mappings,
+                                                null,
+                                                commandTimeout).ConfigureAwait(false);
+    }
+
+    public async Task<IEnumerable<T>> GetRecordsByCmdTextAsync<T>(string commandText,
+                                                                  IEnumerable<IDbDataParameter> parameters,
+                                                                  IEnumerable<(string ModelPropertyPath, string ColumnName, Type ModelPropertyType)> mappings,
+                                                                  IReadOnlyDictionary<string, Func<object, object>> converters,
+                                                                  int? commandTimeout = null) where T : class
+    {
+        return await GetRecordsInternalAsync<T>(commandText,
+                                                CommandType.Text,
+                                                parameters,
                                                 mappings,
                                                 converters,
                                                 commandTimeout).ConfigureAwait(false);

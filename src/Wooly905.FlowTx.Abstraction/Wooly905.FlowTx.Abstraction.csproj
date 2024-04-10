@@ -3,14 +3,14 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <LangVersion>11.0</LangVersion>
+        <LangVersion>12.0</LangVersion>
         <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <PropertyGroup>
         <AssemblyTitle>FlowTx</AssemblyTitle>
         <Company>Wooly905</Company>
-        <Version>0.0.1</Version>
+        <Version>0.2.1</Version>
         <Authors>Wooly905</Authors>
         <Product>FlowTx Abstraction</Product>
         <ProductName>FlowTx Abstraction</ProductName>

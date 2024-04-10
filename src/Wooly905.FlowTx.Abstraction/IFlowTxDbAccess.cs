@@ -14,7 +14,12 @@ public interface IFlowTxDbAccess
                                    IEnumerable<IDbDataParameter> parameters,
                                    int? commandTimeout = null);
 
-    Task<int>ExecuteNonQueryByCmdTextAsync(string commandText, int? commandTimeout = null);
+    Task<int>ExecuteNonQueryByCmdTextAsync(string commandText,
+                                           int? commandTimeout = null);
+
+    Task<int> ExecuteNonQueryByCmdTextAsync(string commandText,
+                                            IEnumerable<IDbDataParameter> parameters,
+                                            int? commandTimeout = null);
 
     Task<object> ExecuteScalarAsync(string storedProcedureName,
                                     int? commandTimeout = null);
@@ -23,7 +28,8 @@ public interface IFlowTxDbAccess
                                     IEnumerable<IDbDataParameter> parameters,
                                     int? commandTimeout = null);
 
-    Task<object> ExecuteScalarByCmdTextAsync(string commandText, int? commandTimeout = null);
+    Task<object> ExecuteScalarByCmdTextAsync(string commandText,
+                                             int? commandTimeout = null);
 
     Task<T?> GetRecordAsync<T>(string storedProcedureName,
                                IEnumerable<(string ModelPropertyPath, string ColumnName, Type ModelPropertyType)> mappings,
@@ -74,11 +80,25 @@ public interface IFlowTxDbAccess
                                                      int? commandTimeout = null) where T : class;
 
     Task<IEnumerable<T>> GetRecordsByCmdTextAsync<T>(string commandText,
+                                                     IEnumerable<IDbDataParameter> parameters,
+                                                     IEnumerable<(string ModelPropertyPath, string ColumnName, Type ModelPropertyType)> mappings,
+                                                     int? commandTimeout = null) where T : class;
+
+    Task<IEnumerable<T>> GetRecordsByCmdTextAsync<T>(string commandText,
+                                                     IEnumerable<IDbDataParameter> parameters,
                                                      IEnumerable<(string ModelPropertyPath, string ColumnName, Type ModelPropertyType)> mappings,
                                                      IReadOnlyDictionary<string, Func<object, object>> converters,
                                                      int? commandTimeout = null) where T : class;
 
-    Task<IFlowTxDbReader> GetDataReaderAsync(string storedProcedureName, IEnumerable<IDbDataParameter> parameters, int? commandTimeout = null);
+    Task<IEnumerable<T>> GetRecordsByCmdTextAsync<T>(string commandText,
+                                                     IEnumerable<(string ModelPropertyPath, string ColumnName, Type ModelPropertyType)> mappings,
+                                                     IReadOnlyDictionary<string, Func<object, object>> converters,
+                                                     int? commandTimeout = null) where T : class;
 
-    Task<IFlowTxDbReader> GetDataReaderAsync(string commandText, int? commandTimeout = null);
+    Task<IFlowTxDbReader> GetDataReaderAsync(string storedProcedureName,
+                                             IEnumerable<IDbDataParameter> parameters,
+                                             int? commandTimeout = null);
+
+    Task<IFlowTxDbReader> GetDataReaderAsync(string commandText,
+                                             int? commandTimeout = null);
 }
