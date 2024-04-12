@@ -137,4 +137,17 @@ VALUES (
         Assert.NotNull(orders);
         Assert.Equal(42, orders.Count());
     }
+
+    [Fact]
+    public async Task CommandText_ExecuteScalar_Test()
+    {
+        FlowTxDbAccess db = new(TestConstants.GetConnectionString());
+
+        string sql = "SELECT COUNT(*) FROM Orders";
+
+        object count = await db.ExecuteScalarByCmdTextAsync(sql);
+
+        Assert.NotNull(count);
+        Assert.Equal(830, count);
+    }
 }
